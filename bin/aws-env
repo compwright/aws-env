@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+use Compwright\AwsEnv\AwsEnv;
+use Compwright\AwsEnv\FormatterFactory;
+use Compwright\AwsEnv\SsmClientFactory;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\SingleCommandApplication;
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+$awsEnv = new AwsEnv(
+    new SsmClientFactory(),
+    new FormatterFactory()
+);
+
+(new SingleCommandApplication())
+    ->setName('aws-env')
+    ->addOption('path', 'p', InputOption::VALUE_REQUIRED, 'Parameter key path', getenv('AWS_ENV_PATH') ?: '/')
+    ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Output format: dotenv,export', getenv('AWS_ENV_FORMAT') ?: 'exec')
+    ->setCode($awsEnv)
+    ->run();
