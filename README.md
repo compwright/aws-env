@@ -11,18 +11,11 @@ Option       | Env. Variable  | Description
 -p, --path   | AWS_ENV_PATH   | Path of secrets to load from SSM
 -f, --format | AWS_ENV_FORMAT | Output format, one of `dotenv`, `env`, or `export`
 
-In addition, the AWS region must be provided via one of the following environment variables:
-
-* AWS_REGION
-* AWS_DEFAULT_REGION
-
-AWS credentials can be provided one of the following ways:
+This script can find AWS credentials in the usual ways, including:
 
 1. If running on EC2, by assuming an IAM role (recommended)
-2. Read from the ~/.aws/configuration file, with the optional `AWS_PROFILE` environment variable
-3. Explicitly with the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and optional `AWS_SESSION_TOKEN` environment variables
-
-For a list of all supported environment variables and authentication options, see https://docs.aws.amazon.com/sdkref/latest/guide/settings-reference.html#EVarSettings.
+2. By reading the `~/.aws/config` and `~/.aws/credentials` files, with the optional `AWS_PROFILE` environment variable
+3. Explicitly with the `AWS_REGION`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables
 
 ## Usage
 
@@ -41,16 +34,9 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 ```
 
-Example:
+For example, to start a shell with a new environment consisting only of the items pulled from AWS SSM + $PATH:
 
-    # have these set in your environment already
-    export AWS_PROFILE=default
-    export AWS_REGION=us-east-1
-    export AWS_ENV_PATH=/my_app/development
-    export AWS_ENV_FORMAT=env
-    
-    # start a shell with a new environment consisting only of the items pulled from AWS SSM + $PATH
-    env -i -S"$(bin/aws-env) PATH=$PATH" && /bin/bash
+    env -i -S"$(bin/aws-env -p /my_app/development) PATH=$PATH" && /bin/bash
 
 ## License
 

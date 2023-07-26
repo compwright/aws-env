@@ -3,19 +3,23 @@
 namespace Compwright\AwsEnv;
 
 use Aws\Ssm\SsmClient;
-use RuntimeException;
 
 class SsmClientFactory
 {
+    private const SSM_API_VERSION = '2014-11-06';
+
+    private string $region;
+
+    public function __construct(string $region)
+    {
+        $this->region = $region;
+    }
+
     public function new(): SsmClient
     {
-        if (!getenv('AWS_REGION') && !getenv('AWS_DEFAULT_REGION')) {
-            throw new RuntimeException('Missing environment variable: AWS_REGION or AWS_DEFAULT_REGION must be set');
-        }
-
         return new SsmClient([
-            'version' => 'latest',
-            'region' => getenv('AWS_REGION') ?: getenv('AWS_DEFAULT_REGION'),
+            'version' => self::SSM_API_VERSION,
+            'region' => $this->region,
         ]);
     }
 }
