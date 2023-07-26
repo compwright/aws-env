@@ -3,6 +3,7 @@
 namespace Compwright\AwsEnv;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AwsEnv
@@ -28,12 +29,10 @@ class AwsEnv
 
         $formatter = $this->formatterFactory->new($format);
 
-        $line = '';
         foreach ($secretsProvider($path) as $key => $value) {
-            $line .= $formatter->__invoke($key, $value);
+            $line = $formatter($key, $value);
+            $output->write($line, false, Output::OUTPUT_RAW);
         }
-
-        $output->writeln($line);
 
         return 0;
     }
