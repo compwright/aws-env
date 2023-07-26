@@ -16,6 +16,7 @@
     },
     "require": {
         "aws/aws-sdk-php": "^3.276",
+        "composer-runtime-api": "^2.2",
         "symfony/console": "^5.4"
     },
     "require-dev": {

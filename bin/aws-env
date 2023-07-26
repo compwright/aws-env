@@ -7,7 +7,7 @@ use Compwright\AwsEnv\SsmClientFactory;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\SingleCommandApplication;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 $awsEnv = new AwsEnv(
     new SsmClientFactory(),
