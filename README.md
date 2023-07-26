@@ -43,7 +43,14 @@ Options:
 
 Example:
 
-    env -i -S $(AWS_PROFILE=my_profile AWS_REGION=us-east-1 bin/aws-env -p /tys_ec2/development -f env) && /bin/bash
+    # have these set in your environment already
+    export AWS_PROFILE=default
+    export AWS_REGION=us-east-1
+    export AWS_ENV_PATH=/my_app/development
+    export AWS_ENV_FORMAT=env
+    
+    # start a shell with a new environment consisting only of the items pulled from AWS SSM + $PATH
+    env -i -S"$(bin/aws-env) PATH=$PATH" && /bin/bash
 
 ## License
 
