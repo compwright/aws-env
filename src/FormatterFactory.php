@@ -25,9 +25,9 @@ class FormatterFactory
         return new Formatters\DotenvFormatter();
     }
 
-    public function newExec(): Formatters\ExecFormatter
+    public function newExport(): Formatters\ExportFormatter
     {
-        return new Formatters\ExecFormatter();
+        return new Formatters\ExportFormatter();
     }
 
     public function newEnv(): Formatters\EnvFormatter

@@ -2,7 +2,7 @@
 
 namespace Compwright\AwsEnv\Formatters;
 
-class ExecFormatter implements FormatterInterface
+class ExportFormatter implements FormatterInterface
 {
     public function __invoke(string $key, string $value): string
     {

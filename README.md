@@ -7,9 +7,9 @@ Command-line script to obtain service configuration environment and secrets secu
 Configuration can be provided via command line options or environment variables:
 
 Option       | Env. Variable  | Description
--------------|----------------|-------------------------------------------------
+-------------|----------------|---------------------------------------------------
 -p, --path   | AWS_ENV_PATH   | Path of secrets to load from SSM
--f, --format | AWS_ENV_FORMAT | Output format, one of `env`, `exec`, or `dotenv`
+-f, --format | AWS_ENV_FORMAT | Output format, one of `dotenv`, `env`, or `export`
 
 In addition, the AWS region must be provided via one of the following environment variables:
 
@@ -32,7 +32,7 @@ Usage:
 
 Options:
   -p, --path=PATH       Parameter key path [default: "/"]
-  -f, --format=FORMAT   Output format: dotenv,export [default: "exec"]
+  -f, --format=FORMAT   Output format: dotenv, env, export [default: "env"]
   -h, --help            Display help for the given command. When no command is given display help for the bin/aws-env command
   -q, --quiet           Do not output any message
   -V, --version         Display this application version

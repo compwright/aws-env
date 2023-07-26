@@ -17,6 +17,6 @@ $awsEnv = new AwsEnv(
 (new SingleCommandApplication())
     ->setName('aws-env')
     ->addOption('path', 'p', InputOption::VALUE_REQUIRED, 'Parameter key path', getenv('AWS_ENV_PATH') ?: '/')
-    ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Output format: dotenv,export', getenv('AWS_ENV_FORMAT') ?: 'exec')
+    ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Output format: dotenv, env, export', getenv('AWS_ENV_FORMAT') ?: 'env')
     ->setCode($awsEnv)
     ->run();
