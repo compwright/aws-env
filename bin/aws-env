@@ -1,9 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-use Aws\Configuration\ConfigurationResolver;
 use Compwright\AwsEnv\AwsEnv;
+use Compwright\AwsEnv\ConfigurationResolver;
 use Compwright\AwsEnv\FormatterFactory;
+use Compwright\AwsEnv\SecretsProviderFactory;
 use Compwright\AwsEnv\SsmClientFactory;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\SingleCommandApplication;
@@ -15,8 +16,8 @@ if (isset($_composer_autoload_path)) {
 }
 
 $awsEnv = new AwsEnv(
-    new SsmClientFactory(
-        ConfigurationResolver::resolve('region', '', 'string')
+    new SecretsProviderFactory(
+        new ConfigurationResolver()
     ),
     new FormatterFactory()
 );

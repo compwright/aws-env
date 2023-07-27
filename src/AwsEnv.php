@@ -8,13 +8,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AwsEnv
 {
-    private SsmClientFactory $ssmClientFactory;
+    private SecretsProviderFactory $providerFactory;
 
     private FormatterFactory $formatterFactory;
 
-    public function __construct(SsmClientFactory $ssmClientFactory, FormatterFactory $formatterFactory)
+    public function __construct(SecretsProviderFactory $providerFactory, FormatterFactory $formatterFactory)
     {
-        $this->ssmClientFactory = $ssmClientFactory;
+        $this->providerFactory = $providerFactory;
         $this->formatterFactory = $formatterFactory;
     }
 
@@ -23,10 +23,7 @@ class AwsEnv
         $format = $input->getOption('format');
         $path = $input->getOption('path');
 
-        $secretsProvider = new SecretsProvider(
-            $this->ssmClientFactory->new()
-        );
-
+        $secretsProvider = $this->providerFactory->new();
         $formatter = $this->formatterFactory->new($format);
 
         foreach ($secretsProvider($path) as $key => $value) {
