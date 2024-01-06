@@ -2,7 +2,7 @@
 
 namespace Compwright\AwsEnv;
 
-class SecrestsProviderFactoryTest extends \PHPUnit\Framework\TestCase
+class SecretsProviderFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testNew(): void
     {
